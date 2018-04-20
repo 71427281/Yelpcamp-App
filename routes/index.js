@@ -20,7 +20,6 @@ router.post("/register", function(req, res){
          console.log(err);
          return res.render("register", {error: err.message, page: "register"});
       }
-      if (req.body.adminCode === "i_am_admin") user.isAdmin = true;
       passport.authenticate("local")(req, res, function(){
          req.flash("success", "Welcome to YelpCamp " + req.user.username + " !");
          res.redirect("/campgrounds");
