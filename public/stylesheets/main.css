@@ -1,0 +1,56 @@
+#index_row{
+    display: flex; 
+    flex-wrap: wrap;
+}
+
+#index_row .thumbnail{
+    padding: 0;
+    text-align: center;
+}
+
+#new_header{
+    text-align: center;
+    display: none;
+}
+
+#new_form{
+    width:30%; margin: 30px auto;
+}
+
+#delete_form{
+    display: inline-block;
+}
+
+#registerOrLogin_form{
+    width: 30%;
+    margin: 20px auto;
+}
+
+#registerOrLogin_header{
+    text-align: center;
+}
+
+#map{
+    height: 400px;
+    width: 100%;
+}
+
+.caption-full .pull-right{
+    margin-top: -1px;
+}
+
+.thumbnail img{
+    width: 100%;
+}
+
+.thumbnail{
+    padding: 0;
+}
+
+.thumbnail .caption-full{
+    margin: 9px;
+}
+
+.glyphicon-tent{
+    font-size: 0.8em;   
+}

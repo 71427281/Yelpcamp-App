@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <header>
+            <% if (currentUser && currentUser.isAdmin) {%>
+              <h1>Hi admin!</h1>
+            <% } %>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1><span class="glyphicon glyphicon-tent" aria-hidden="true"></span> Welcome to YelpCamp</h1>
+                    <p>Campgrounds all over the world</p>
+                    <a class="btn btn-primary btn-lg" href="/campgrounds/new">Create New Campground</a>
+                </div>
+            </div>
+    </header>
+
+
+    <div id="index_row" class="row">
+        <% for(var i =0; i<campgrounds.length; i++){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= campgrounds[i].image %>">
+                    <div class="caption">
+                        <h4>
+                            <%= campgrounds[i].name %>
+                        </h4>
+                    </div>
+                    <p><a class="btn btn-primary" href="/campgrounds/<%= campgrounds[i]._id %>">More Info</a></p>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+<% include ../partials/footer %>
