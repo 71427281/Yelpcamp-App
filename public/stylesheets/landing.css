@@ -13,6 +13,14 @@ body {
   color: #fff;
 }
 
+a#landing_button{
+    background-color: white;
+    color: black;
+    font-size: 1.2em;
+    border: none;
+}
+
+
 .slideshow { 
   position: fixed;
   width: 100%;
@@ -80,3 +88,6 @@ body {
     outline: none;
 }
 
+*{
+  font-family: Lato;
+}

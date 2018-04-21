@@ -35,6 +35,18 @@
     width: 100%;
 }
 
+#campgrounds_index_header{
+    font-size: 4em;
+}
+
+.campgrounds_name{
+    font-size: 1.25em;
+}
+
+.caption.campgrounds{
+    padding: 3px;
+}
+
 .caption-full .pull-right{
     margin-top: -1px;
 }
@@ -53,4 +65,8 @@
 
 .glyphicon-tent{
     font-size: 0.8em;   
+}
+
+*{
+    font-family: Lato;
 }
