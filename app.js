@@ -18,8 +18,6 @@ var commentRoutes = require("./routes/comments");
 var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
 mongoose.connect(url);
 
-/*seedDB();*/
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
