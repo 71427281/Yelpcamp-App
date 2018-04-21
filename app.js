@@ -27,7 +27,7 @@ app.locals.moment = require('moment');
 
 // PASSPORT CONFIG
 app.use(require("express-session")({
-   secret: "Brandeis University",
+   secret: "Zhejiang University of Tech",
    resave: false,
    saveUninitialized: false
 }));

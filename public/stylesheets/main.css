@@ -39,6 +39,16 @@
     font-size: 4em;
 }
 
+#forgot_form{
+    width: 40%;
+    margin: 20px auto;
+}
+
+#reset_form{
+    width: 40%;
+    margin: 20px auto;
+}
+
 .campgrounds_name{
     font-size: 1.25em;
 }

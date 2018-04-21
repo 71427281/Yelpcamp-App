@@ -1,0 +1,13 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <form id="forgot_form" action="/forgot" method="POST">
+        <div class="form-group">
+            <label for="forgot_email">Email</label>
+            <input id="forgot_email" class="form-control" type="email" name="email">
+        </div>
+        <button class="btn btn-primary">Send reset link to your email</button>
+    </form>
+</div>
+
+<% include ./partials/footer %>
