@@ -1,9 +1,27 @@
 <% include ../partials/header %>
 
-<h1>Profile</h1>
-<p><%=user.username %></p>
-<p><%=user.email %></p>
-<p><%=user.avatar %></p>
-
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <header><h1 id="profile_header"><strong><%= user.username%>'s Profile</strong></h1></header>
+            <hr>
+        </div>
+        <div class="col-md-4">
+            <div class="well well-sm">
+                <div class="thumbnail"><img src="<%= user.avatar %>"></div>
+                <p>Email: <%= user.email %></p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="well">
+                <header><h2 id="profile_list_header">Campgrounds created:</h2></header>
+                <ul class="list-group">
+                    <% campgrounds.forEach(function(campground){ %>
+                        <li class="list-group-item"><a href="/campgrounds/<%=campground.id%>"><%=campground.name%></a></li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <% include ../partials/footer %>

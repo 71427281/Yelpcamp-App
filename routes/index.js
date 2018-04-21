@@ -2,6 +2,7 @@ var express = require("express"),
     router = express.Router(),
     passport = require("passport"),
     User = require("../models/user"),
+    Campground = require("../models/campground"),
     middleware = require("../middleware"),
     nodemailer = require("nodemailer"),
     async = require("async"),
@@ -54,7 +55,15 @@ router.get("/users/:id", middleware.isLoggedIn, middleware.checkCurrentUser, fun
          req.flash("error", "User not found");
          res.redirect("/campgrounds");
       } else{
-         res.render("users/show", {user:user});
+         Campground.find().where("author.id").equals(user._id).exec(function(err, campgrounds){
+            if(err){
+               console.log(err);
+               req.flash("error", "User not found");
+               res.redirect("/campgrounds");
+            } else{
+               res.render("users/show", {user:user, campgrounds:campgrounds});
+            }
+         });
       }
    });
 });

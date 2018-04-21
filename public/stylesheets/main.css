@@ -49,6 +49,15 @@
     margin: 20px auto;
 }
 
+#profile_header{
+    font-size: 1.5em;
+}
+
+#profile_list_header{
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
 .campgrounds_name{
     font-size: 1.25em;
 }
