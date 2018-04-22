@@ -58,6 +58,10 @@
     margin-bottom: 20px;
 }
 
+#search_form_input{
+    width: 182px;
+}
+
 .campgrounds_name{
     font-size: 1.25em;
 }

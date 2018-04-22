@@ -14,12 +14,30 @@ var options = {
 var geocoder = NodeGeocoder(options);
 
 router.get("/", function(req,res){
-   Campground.find({}, function(err, allCampgrounds){
-      if (err) console.log(err);
-      else {
-         res.render("campgrounds/index", {page:"campgrounds", campgrounds: allCampgrounds});
-      }
-   });
+   var noMatch;
+   if(req.query.search) {
+      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      // Get all campgrounds from DB
+      Campground.find({name: regex}, function(err, allCampgrounds){
+      if(err){
+         console.log(err);
+         req.flash("error", "Something went wrong");
+         return res.redirect("/campgrounds");
+      } else {
+         if(allCampgrounds.length < 1) {
+            noMatch = "No campground match that query, please try again";
+         }
+         res.render("campgrounds/index",{campgrounds:allCampgrounds, noMatch: noMatch});
+         }
+      });
+   } else{
+      Campground.find({}, function(err, allCampgrounds){
+         if (err) console.log(err);
+         else {
+            res.render("campgrounds/index", {page:"campgrounds", campgrounds: allCampgrounds, noMatch: noMatch});
+         }
+      });
+    }
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -98,5 +116,8 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res){
    });
 });
 
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

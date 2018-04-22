@@ -10,12 +10,23 @@
                     <h1 id="campgrounds_index_header"><span class="glyphicon glyphicon-tent" aria-hidden="true"></span> Welcome to YelpCamp</h1>
                     <p>Campgrounds all over the world</p>
                     <a class="btn btn-primary" href="/campgrounds/new">Create New Campground</a>
+                    <p>
+                        <form id="search_form" action="/campgrounds" method="GET" class="form-inline">
+                            <input id="search_form_input" type="text" name="search" placeholder="Search campgrounds..." class="form-control">
+                            <button class="btn btn-default">Search</button>
+                        </form>
+                    </p>
                 </div>
             </div>
     </header>
 
 
     <div id="index_row" class="row">
+        <% if(noMatch !== null){ %>
+            <div class="col-md-12">
+                <h4><%= noMatch %></h4>
+            </div>
+        <% } %>
         <% for(var i =0; i<campgrounds.length; i++){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
