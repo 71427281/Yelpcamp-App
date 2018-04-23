@@ -11,6 +11,8 @@ body {
 
 #landing-header h1 {
   color: #fff;
+  font-size: 4em;
+  text-shadow: 3px 3px 3px rgba(0,0,0,0.4);
 }
 
 a#landing_button{
@@ -83,6 +85,7 @@ a#landing_button{
     opacity: 0
   }
 }
+
 
 [href="/campgrounds"]:focus{
     outline: none;

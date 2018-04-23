@@ -4,7 +4,7 @@
     <header id="new_header">
         <h1>Edit Form</h1>
     </header>
-    <form id ="new_form" action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" >
+    <form id ="new_form" action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="campground_name">Name</label>
             <input id="campground_name" class="form-control" type="text" value="<%= campground.name %>" name = "campground[name]">
