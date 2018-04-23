@@ -132,7 +132,6 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
             var result = await cloudinary.v2.uploader.upload(req.file.path);
             campground.image = result.secure_url;
             campground.imageId = result.public_id;
-            
          } catch(err){
             console.log(err);
             req.flash("error", err.message);
@@ -157,7 +156,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
       campground.save();
       req.flash("success","Campground Updated!");
       res.redirect("/campgrounds/" + campground._id);
-            
+      
    });
 });
 
