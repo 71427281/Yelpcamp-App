@@ -3,7 +3,8 @@ var express = require("express"),
     Campground = require("../models/campground"),
     middleware = require("../middleware"),
     NodeGeocoder = require('node-geocoder');
- 
+
+// GEOCODER CONFIG
 var options = {
   provider: 'google',
   httpAdapter: 'https',
@@ -31,7 +32,6 @@ var imageFilter = function (req, file, cb) {
 var upload = multer({ storage: storage, fileFilter: imageFilter})
 
 var cloudinary = require('cloudinary');
-
 cloudinary.config({ 
   cloud_name: 'yirunzhou', 
   api_key: process.env.CLOUDINARY_API_KEY, 
@@ -158,6 +158,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
       res.redirect("/campgrounds/" + campground._id);
       
    });
+   
 });
 
 router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res){
@@ -172,6 +173,6 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res){
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+}
 
 module.exports = router;
