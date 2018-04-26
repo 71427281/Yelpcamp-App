@@ -156,6 +156,11 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
             req.flash("error", err.message);
             res.redirect("back");
         } else {
+            
+            campground.name = req.body.campground.name;
+            campground.price = req.body.campground.price;
+            campground.description = req.body.campground.description;
+            
             if (req.file) {
               try {
                   await cloudinary.v2.uploader.destroy(campground.imageId);
@@ -167,8 +172,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
                   return res.redirect("back");
               }
             }
-            campground.name = req.body.name;
-            campground.description = req.body.description;
+            
             campground.save();
             req.flash("success","Successfully Updated!");
             res.redirect("/campgrounds/" + campground._id);
