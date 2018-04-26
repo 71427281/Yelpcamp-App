@@ -132,31 +132,13 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res){
 });
 
 router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), function(req, res){
-   /*geocoder.geocode(req.body.location, function (err, data) {
-      if (err || !data.length) {
-         req.flash('error', 'Invalid address');
-         return res.redirect('back');
-      }
-      req.body.campground.lat = data[0].latitude;
-      req.body.campground.lng = data[0].longitude;
-      req.body.campground.location = data[0].formattedAddress;
-      Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, campground){
-         if(err){
-            req.flash("error", err.message);
-            res.redirect("back");
-         } else {
-            req.flash("success","Campground Updated!");
-            res.redirect("/campgrounds/" + campground._id);
-         }
-      });
-   });*/
+   
    
    Campground.findById(req.params.id, async function(err, campground){
         if(err){
             req.flash("error", err.message);
             res.redirect("back");
         } else {
-            
             campground.name = req.body.campground.name;
             campground.price = req.body.campground.price;
             campground.description = req.body.campground.description;
@@ -168,9 +150,23 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single("image"), 
                   campground.imageId = result.public_id;
                   campground.image = result.secure_url;
               } catch(err) {
+                  console.log(err);
                   req.flash("error", err.message);
                   return res.redirect("back");
               }
+            }
+            
+            if(req.body.location != campground.location){
+               try{
+                  var data = await geocoder.geocode(req.body.location)
+                  campground.lat = data[0].latitude;
+                  campground.lng = data[0].longitude;
+                  campground.location = data[0].formattedAddress;
+               } catch(err){
+                  console.log(err);
+                  req.flash("error", err.message);
+                  return res.redirect("back");
+               }
             }
             
             campground.save();
