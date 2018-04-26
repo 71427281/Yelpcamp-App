@@ -4,14 +4,14 @@
     <header id="new_header">
         <h1>Edit Form</h1>
     </header>
-    <form id ="new_form" action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" >
+    <form id ="new_form" action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="campground_name">Name</label>
             <input id="campground_name" class="form-control" type="text" value="<%= campground.name %>" name = "campground[name]">
         </div>
         <div class="form-group">
-            <label for="campground_image">Image Url</label>
-            <input id="campground_image" class="form-control" type="text" value="<%= campground.image %>" name = "campground[image]">
+            <label for="image">Image</label>
+            <input type="file" id="image" name="image" accept="image/*">
         </div>
         <div class="form-group">
             <label for="campground_location">Location</label>
