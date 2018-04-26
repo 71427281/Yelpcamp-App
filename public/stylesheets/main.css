@@ -23,10 +23,11 @@
 
 #registerOrLogin_form{
     width: 30%;
-    margin: 20px auto;
+    margin: 30px auto;
 }
 
 #registerOrLogin_header{
+    margin-top: 60px;
     text-align: center;
 }
 
@@ -49,6 +50,10 @@
     margin: 20px auto;
 }
 
+#forgot_form{
+    margin: 80px auto;
+}
+
 #profile_header{
     font-size: 1.5em;
 }
@@ -60,6 +65,10 @@
 
 #search_form_input{
     width: 182px;
+}
+
+#campground_index_p{
+    font-size: 1.5em;
 }
 
 .campgrounds_name{

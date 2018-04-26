@@ -2,35 +2,35 @@
 
 <div class="container">
     <header id="new_header">
-        <h1>This is new.ejs</h1>
+        <h1>创建新地点</h1>
     </header>
     <form id ="new_form" action="/campgrounds" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="campground_name">Name</label>
+            <label for="campground_name">命名</label>
             <input id="campground_name" class="form-control" type="text" name = "campground[name]">
         </div>
         <div class="form-group">
-            <label for="image">Image</label>
+            <label for="image">图片</label>
             <input type="file" id="image" name="image" accept="image/*" required>
         </div>
         
         <div class="form-group">
-            <label for="campground_location">Location</label>
+            <label for="campground_location">地点</label>
             <input id="campground_location" class="form-control" type="text" name = "location">
         </div>
         <div class="form-group">
-            <label for="campground_price">Price Per Night</label>
+            <label for="campground_price">每晚价格</label>
             <input id="campground_price" class="form-control" type="number" min="0.01" step="0.01" name = "campground[price]">
         </div>
         <div class="form-group">
-            <label for="campground_description">Description</label>
+            <label for="campground_description">具体描述</label>
             <textarea id="campground_description" class="form-control"  name = "campground[description]"></textarea>
         </div>
     
         <div class="form-group">
-            <button class="btn btn-primary btn-lg btn-block">Create New Campground!</button>
+            <button class="btn btn-success btn-lg btn-block">创建新地点！</button>
         </div>
-        <a href="/campgrounds">Go back</a>
+        <a href="/campgrounds">返回</a>
     </form>
     
 </div>
