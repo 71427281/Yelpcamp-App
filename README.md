@@ -1,6 +1,6 @@
 # Yelpcamp-App
 
-This is an application for people like camping to review campground they have visited thus provide guidance for other people.
+This is an application for people like camping to review campground they have visited thus provide guidance for others.
 
 1. ```npm install``` to install all dependencies of this application.
 
