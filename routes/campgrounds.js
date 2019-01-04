@@ -69,8 +69,39 @@ router.get("/", function(req,res){
 });
 
 
-router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
-   geocoder.geocode(req.body.location, function (err, data) {
+router.post("/", middleware.isLoggedIn, upload.single('image'), async function(req, res){
+   
+   try{
+      let data = await geocoder.geocode(req.body.location);
+      let result = await cloudinary.v2.uploader.upload(req.file.path);
+      
+      req.body.campground.lat = data[0].latitude;
+      req.body.campground.lng = data[0].longitude;
+      req.body.campground.location = data[0].formattedAddress;
+      // add cloudinary url for the image to the campground object under image property
+      req.body.campground.image = result.secure_url;
+      req.body.campground.imageId = result.public_id;
+      // add author to campground
+      req.body.campground.author = {
+         id: req.user._id,
+         username: req.user.username
+      }
+      
+      let created = await Campground.create(req.body.campground);
+      console.log("AN USER CREATED A NEW CAMPGROUND");
+      console.log(created);
+      req.flash("success", "Created a new campground!");
+      res.redirect("/campgrounds");
+      
+   } catch(err){
+      console.log(err);
+      req.flash('error', err.message);
+      return res.redirect('back');
+   }
+   
+   
+   
+   /*geocoder.geocode(req.body.location, async function (err, data) {
       if (err || ! data.length) {
          console.log(err);
          req.flash('error', 'Invalid address');
@@ -94,22 +125,22 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
          id: req.user._id,
          username: req.user.username
       }
-      Campground.create(req.body.campground, function(err, campground){
-         if (err) {  
-            console.log(err);
-            req.flash('error', err.message);
-            return res.redirect('back');
-         }
-         campground.author.id = req.user._id;
-         campground.author.username = req.user.username;
-         campground.save();
+      
+      try{
+         let created = await Campground.create(req.body.campground);
          console.log("AN USER CREATED A NEW CAMPGROUND");
          console.log(campground);
          req.flash("success", "Created a new campground!");
          res.redirect("/campgrounds");
-         });
-      });
+      } catch (err) {
+         console.log(err);
+         req.flash('error', err.message);
+         return res.redirect('back');
+      }
+      
    });
+   
+   */
 });
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
