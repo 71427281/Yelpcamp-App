@@ -5,6 +5,7 @@
         <div class="col-md-12">
             <header><h1 id="profile_header"><strong><%= user.username%>'s Profile</strong></h1></header>
             <hr>
+            <a href="/follow/<%= user.id %>"><button class="btn btn-primary">Follow <%= user.username %></button></a>
         </div>
         <div class="col-md-4">
             <div class="well well-sm">

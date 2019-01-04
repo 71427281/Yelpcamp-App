@@ -48,7 +48,7 @@ router.get("/logout", function(req, res){
    res.redirect("/campgrounds");
 });
 
-router.get("/users/:id", middleware.isLoggedIn, middleware.checkCurrentUser, function(req, res){
+router.get("/users/:id", middleware.isLoggedIn, function(req, res){
    User.findById(req.params.id, function(err, user){
       if(err || !user){
          console.log(err);
@@ -185,5 +185,24 @@ router.post("/reset/:token", function(req, res){
          res.redirect('/campgrounds');
       });
 });
+
+
+// follow user
+router.get('/follow/:id', middleware.isLoggedIn, async function(req, res) {
+  try {
+    let user = await User.findById(req.params.id);
+    user.followers.push(req.user._id);
+    user.save();
+    req.flash('success', 'Successfully followed ' + user.username + '!');
+    res.redirect('/users/' + req.params.id);
+  } catch(err) {
+    req.flash('error', err.message);
+    res.redirect('back');
+  }
+});
+
+
+
+
 
 module.exports = router;
