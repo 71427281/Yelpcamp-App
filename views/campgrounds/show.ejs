@@ -19,7 +19,7 @@
                     <h4 class="pull-right">$<%= campground.price %>/per night</h4>
                     <h4><a><%=campground.name%></a></h4>
                     <p><%= campground.description %></p>
-                    <p><em>Author： <strong><%= campground.author.username %></strong>
+                    <p><em>Author： <a href="/users/<%= campground.author.id %>"><strong><%= campground.author.username %></strong></a>
                         , <%= moment(campground.createdAt).fromNow() %></em></p>
                     <% if (currentUser && (campground.author.id.equals(currentUser._id)|| currentUser.isAdmin)) {%>
                         <a href="/campgrounds/<%= campground._id%>/edit" class="btn btn-sm btn-warning">Edit</a>
