@@ -1,6 +1,8 @@
 var express = require("express"),
     router = express.Router(),
     Campground = require("../models/campground"),
+    User = require("../models/user"),
+    Notification = require("../models/notification"),
     middleware = require("../middleware"),
     NodeGeocoder = require('node-geocoder');
 
@@ -90,6 +92,18 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), async function(r
       let created = await Campground.create(req.body.campground);
       console.log("AN USER CREATED A NEW CAMPGROUND");
       console.log(created);
+      
+      let author = await User.findById(req.user._id).populate('followers').exec();
+      let newNotification = {
+        username: req.user.username,
+        campgroundId: created.id
+      }
+      for(const follower of author.followers) {
+        let notification = await Notification.create(newNotification);
+        follower.notifications.push(notification);
+        follower.save();
+      }
+      
       req.flash("success", "Created a new campground!");
       res.redirect("/campgrounds");
       
