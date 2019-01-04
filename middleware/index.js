@@ -3,6 +3,7 @@ var Comment = require("../models/comment");
 
 var middlewareObj = {};
 
+
 middlewareObj.checkCampgroundOwnership = function(req, res, next){
    if (req.isAuthenticated()){
       Campground.findById(req.params.id, function(err, campground){
@@ -66,7 +67,7 @@ middlewareObj.checkCurrentUser = function(req, res, next){
    if(req.user._id.equals(req.params.id) || req.user.isAdmin){
       return next();
    }
-   req.flash("error", "You do not have the permission");
+   req.flash("error", "You do not have the permission.");
    res.redirect("/campgrounds");
 }
 
