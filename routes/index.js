@@ -3,6 +3,7 @@ var express = require("express"),
     passport = require("passport"),
     User = require("../models/user"),
     Campground = require("../models/campground"),
+    Notification = require("../models/notification"),
     middleware = require("../middleware"),
     nodemailer = require("nodemailer"),
     async = require("async"),
@@ -48,7 +49,7 @@ router.get("/logout", function(req, res){
    res.redirect("/campgrounds");
 });
 
-router.get("/users/:id", middleware.isLoggedIn, middleware.checkCurrentUser, function(req, res){
+router.get("/users/:id", middleware.isLoggedIn, function(req, res){
    User.findById(req.params.id, function(err, user){
       if(err || !user){
          console.log(err);
@@ -185,5 +186,52 @@ router.post("/reset/:token", function(req, res){
          res.redirect('/campgrounds');
       });
 });
+
+
+// follow user
+router.get('/follow/:id', middleware.isLoggedIn, async function(req, res) {
+  try {
+    let user = await User.findById(req.params.id);
+    user.followers.push(req.user._id);
+    user.save();
+    req.flash('success', 'Successfully followed ' + user.username + '!');
+    res.redirect('/users/' + req.params.id);
+  } catch(err) {
+    req.flash('error', err.message);
+    res.redirect('back');
+  }
+});
+
+
+// view all notifications
+router.get('/notifications', middleware.isLoggedIn, async function(req, res) {
+  try {
+    let user = await User.findById(req.user._id).populate({
+      path: 'notifications',
+      options: { sort: { "_id": -1 } }
+    }).exec();
+    let allNotifications = user.notifications;
+    res.render('notifications/index', { allNotifications });
+  } catch(err) {
+    req.flash('error', err.message);
+    res.redirect('back');
+  }
+});
+
+// handle notification
+router.get('/notifications/:id', middleware.isLoggedIn, async function(req, res) {
+  try {
+    let notification = await Notification.findById(req.params.id);
+    notification.isRead = true;
+    notification.save();
+    res.redirect(`/campgrounds/${notification.campgroundId}`);
+  } catch(err) {
+    req.flash('error', err.message);
+    res.redirect('back');
+  }
+});
+
+
+
 
 module.exports = router;
